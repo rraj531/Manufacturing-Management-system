@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manufacturing Management System</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/app.js" defer></script>
+</head>
+
+<body>
+<div class="app-shell">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+
+        <a href="#" class="brand">
+            <div class="brand-logo">M</div>
+            <div>
+                <strong>ForgeFlow</strong>
+                <small>MANUFACTURING ERP</small>
+            </div>
+        </a>
+
+        <div class="plant-box">
+            <span class="status-dot"></span>
+            <span>Plant Operations</span>
+            <span class="chevron">⌄</span>
+        </div>
+
+        <p class="nav-label">WORKSPACE</p>
+
+        <nav class="nav-menu" aria-label="Main navigation">
+            <button class="nav-link active" data-page="Dashboard">
+                <span class="nav-icon">⌂</span>
+                Dashboard
+            </button>
+
+            <button class="nav-link" data-page="Employees">
+                <span class="nav-icon">♙</span>
+                Employees
+            </button>
+
+            <button class="nav-link" data-page="Attendance">
+                <span class="nav-icon">▣</span>
+                Attendance
+            </button>
+
+            <button class="nav-link" data-page="Inventory">
+                <span class="nav-icon">▤</span>
+                Inventory
+            </button>
+
+            <button class="nav-link" data-page="Production">
+                <span class="nav-icon">⚙</span>
+                Production
+            </button>
+
+            <button class="nav-link" data-page="Dispatch">
+                <span class="nav-icon">⇢</span>
+                Dispatch
+            </button>
+
+            <button class="nav-link" data-page="Reports">
+                <span class="nav-icon">▥</span>
+                Reports
+            </button>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="help-box">
+                <strong>Project workspace</strong>
+                <p>Manage daily plant operations in one place.</p>
+            </div>
+
+            <div class="profile">
+                <div class="avatar">PA</div>
+
+                <div class="profile-info">
+                    <strong>Plant Admin</strong>
+                    <small>System Administrator</small>
+                </div>
+
+                <span class="profile-menu">•••</span>
+            </div>
+        </div>
+
+    </aside>
+
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+    <!-- Main content -->
+    <main class="main-area">
+
+        <!-- Top bar -->
+        <header class="topbar">
+
+            <button
+                class="menu-toggle"
+                id="menuToggle"
+                aria-label="Open navigation"
+            >☰</button>
+
+            <div class="breadcrumb">
+                <span>Workspace</span>
+                <span>/</span>
+                <strong id="breadcrumbCurrent">Dashboard</strong>
+            </div>
+
+            <div class="topbar-actions">
+
+                <label class="search-box">
+                    <span>⌕</span>
+
+                    <input
+                        type="search"
+                        id="globalSearch"
+                        placeholder="Search stock or activity..."
+                        aria-label="Search dashboard"
+                    >
+                </label>
+
+                <span class="topbar-date" id="currentDate"></span>
+
+            </div>
+        </header>
+
+        <div class="page-content">
+
+            <!-- Page heading -->
+            <section class="page-heading">
+
+                <div>
+                    <p class="eyebrow" id="pageEyebrow">
+                        OPERATIONS CENTER
+                    </p>
+
+                    <h1 id="pageTitle">Dashboard Overview</h1>
+
+                    <p class="page-description" id="pageDescription">
+                        Monitor your plant's daily operations at a glance.
+                    </p>
+                </div>
+
+                <button class="primary-button" id="exportButton">
+                    ↓ Export Summary
+                </button>
+
+            </section>
+
+            <!-- Dashboard -->
+            <section id="dashboardView">
+
+                <!-- Hero section -->
+                <section class="hero-panel">
+
+                    <div class="hero-copy">
+                        <span class="hero-tag">
+                            <span class="hero-dot"></span>
+                            TODAY'S PRODUCTION
+                        </span>
+
+                        <h2>
+                            Every operation,<br>
+                            <em>under control.</em>
+                        </h2>
+
+                        <p>
+                            Track workforce, materials, production and
+                            dispatch from one workspace.
+                        </p>
+
+                        <div class="hero-meta">
+                            <span id="todayLabel">Today</span>
+                            <span class="meta-divider"></span>
+                            <span>
+                                Plant status:
+                                <strong class="operational">Operational</strong>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="production-visual">
+                        <div class="visual-circle circle-one"></div>
+                        <div class="visual-circle circle-two"></div>
+
+                        <div class="machine-card">
+                            <span class="machine-symbol">⚙</span>
+                            <span>Production line</span>
+                            <strong>Running smoothly</strong>
+
+                            <div class="machine-bars">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+
+                <!-- Summary cards -->
+                <section class="stats-grid">
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <span>Total Employees</span>
+                            <span class="stat-icon blue">♙</span>
+                        </div>
+
+                        <h3>128</h3>
+                        <p class="stat-note">Registered workforce</p>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <span>Present Today</span>
+                            <span class="stat-icon green">✓</span>
+                        </div>
+
+                        <h3>112</h3>
+                        <p class="stat-note">Attendance summary</p>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <span>Inventory Items</span>
+                            <span class="stat-icon orange">▤</span>
+                        </div>
+
+                        <h3>246</h3>
+                        <p class="stat-note">Materials and products</p>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <span>Active Production</span>
+                            <span class="stat-icon purple">⚙</span>
+                        </div>
+
+                        <h3>08</h3>
+                        <p class="stat-note">Active production jobs</p>
+                    </article>
+
+                </section>
+
+                <!-- Dashboard lower section -->
+                <section class="dashboard-grid">
+
+                    <!-- Inventory table -->
+                    <article class="panel inventory-panel">
+
+                        <div class="panel-header">
+                            <div>
+                                <p class="eyebrow">MATERIAL CONTROL</p>
+                                <h2>Inventory Overview</h2>
+                            </div>
+
+                            <button
+                                class="text-button"
+                                data-page="Inventory"
+                            >
+                                View inventory →
+                            </button>
+                        </div>
+
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Material</th>
+                                        <th>Stock</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="inventoryTable">
+
+                                    <tr class="searchable-row">
+                                        <td>
+                                            <div class="material-name">
+                                                <span class="material-icon">Fe</span>
+                                                <span>
+                                                    <strong>Steel Sheets</strong>
+                                                    <small>MAT-001</small>
+                                                </span>
+                                            </div>
+                                        </td>
+
+                                        <td>12 units</td>
+
+                                        <td>
+                                            <span class="badge badge-low">
+                                                Low stock
+                                            </span>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="searchable-row">
+                                        <td>
+                                            <div class="material-name">
+                                                <span class="material-icon">Al</span>
+                                                <span>
+                                                    <strong>Aluminium Rods</strong>
+                                                    <small>MAT-002</small>
+                                                </span>
+                                            </div>
+                                        </td>
+
+                                        <td>45 units</td>
+
+                                        <td>
+                                            <span class="badge badge-good">
+                                                Available
+                                            </span>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="searchable-row">
+                                        <td>
+                                            <div class="material-name">
+                                                <span class="material-icon">Cu</span>
+                                                <span>
+                                                    <strong>Copper Wire</strong>
+                                                    <small>MAT-003</small>
+                                                </span>
+                                            </div>
+                                        </td>
+
+                                        <td>8 units</td>
+
+                                        <td>
+                                            <span class="badge badge-critical">
+                                                Critical
+                                            </span>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="searchable-row">
+                                        <td>
+                                            <div class="material-name">
+                                                <span class="material-icon">Bx</span>
+                                                <span>
+                                                    <strong>Packaging Boxes</strong>
+                                                    <small>MAT-004</small>
+                                                </span>
+                                            </div>
+                                        </td>
+
+                                        <td>90 units</td>
+
+                                        <td>
+                                            <span class="badge badge-good">
+                                                Available
+                                            </span>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p class="empty-message" id="inventoryEmpty">
+                            No matching materials found.
+                        </p>
+
+                    </article>
+
+                    <!-- Recent activity -->
+                    <article class="panel activity-panel">
+
+                        <div class="panel-header">
+                            <div>
+                                <p class="eyebrow">PLANT UPDATES</p>
+                                <h2>Recent Activity</h2>
+                            </div>
+                        </div>
+
+                        <div class="activity-list" id="activityList">
+
+                            <div class="activity-item searchable-row">
+                                <div class="activity-icon green">✓</div>
+
+                                <div class="activity-content">
+                                    <strong>Attendance recorded</strong>
+                                    <p>Daily attendance entry completed.</p>
+                                    <small>Today · 09:15 AM</small>
+                                </div>
+                            </div>
+
+                            <div class="activity-item searchable-row">
+                                <div class="activity-icon orange">▤</div>
+
+                                <div class="activity-content">
+                                    <strong>Stock needs attention</strong>
+                                    <p>Copper wire stock is low.</p>
+                                    <small>Today · 10:30 AM</small>
+                                </div>
+                            </div>
+
+                            <div class="activity-item searchable-row">
+                                <div class="activity-icon blue">⚙</div>
+
+                                <div class="activity-content">
+                                    <strong>Production updated</strong>
+                                    <p>Production job status updated.</p>
+                                    <small>Today · 11:45 AM</small>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <p class="empty-message" id="activityEmpty">
+                            No matching activities found.
+                        </p>
+
+                    </article>
+
+                </section>
+
+            </section>
+
+            <!-- Placeholder for modules in later phases -->
+            <section
+                class="module-placeholder"
+                id="modulePlaceholder"
+                hidden
+            >
+                <div class="placeholder-icon" id="moduleIcon">⚙</div>
+
+                <p class="eyebrow">MANAGEMENT MODULE</p>
+
+                <h2 id="moduleTitle">Employees</h2>
+
+                <p id="moduleDescription"></p>
+
+                <span class="module-status">
+                    UI FOUNDATION READY · FEATURE DEVELOPMENT PENDING
+                </span>
+
+                <button class="primary-button" id="backToDashboard">
+                    ← Back to Dashboard
+                </button>
+            </section>
+
+            <footer class="footer">
+                <span>Manufacturing Management System</span>
+                <span>Phase 1 · Frontend Foundation</span>
+            </footer>
+
+        </div>
+    </main>
+</div>
+</body>
+</html>
