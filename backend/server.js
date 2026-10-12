@@ -1,4 +1,5 @@
 require('dotenv').config();
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -55,8 +56,8 @@ function sanitizePayload(cfg,body,isUpdate=false){
    if(body[key]===undefined){if(!isUpdate&&cfg.required.includes(key))throw new HttpError(400,key+' is required.');continue}
    let v=body[key];
    if(v===null||v===''){if(cfg.required.includes(key))throw new HttpError(400,key+' is required.');out[key]=null;continue}
-   if(cfg.numbers.includes(key))v=numeric(v,key,{nullable:!cfg.required.includes(key)});
-   if(cfg.dates.includes(key)){if(!dateOk(v))throw new HttpError(400,key+' must use YYYY-MM-DD format.')}
+   if((cfg.numbers||[]).includes(key))v=numeric(v,key,{nullable:!cfg.required.includes(key)});
+   if((cfg.dates||[]).includes(key)){if(!dateOk(v))throw new HttpError(400,key+' must use YYYY-MM-DD format.')}
    if(typeof v==='string')v=v.trim();
    out[key]=v;
  }
@@ -78,6 +79,10 @@ app.post('/api/attendance/bulk',asyncRoute(async(req,res)=>{
 }));
 app.get('/api/reports/summary',asyncRoute(async(req,res)=>{const [[e]]=await pool.query('SELECT COUNT(*) total FROM employees WHERE is_active=1');const [[a]]=await pool.query('SELECT COUNT(*) total FROM attendance');const [[i]]=await pool.query('SELECT COUNT(*) total FROM inventory');const [[p]]=await pool.query('SELECT COUNT(*) total FROM production_orders');const [[d]]=await pool.query('SELECT COUNT(*) total FROM dispatches');res.json({employees:e.total,attendance:a.total,inventory:i.total,production:p.total,dispatch:d.total})}));
 app.get('/api/reports/:resource',asyncRoute(async(req,res)=>{if(req.params.resource==='attendance'){const [rows]=await pool.query('SELECT a.id,a.employee_id,e.employee_code,e.name,e.department,a.attendance_date,a.status,a.remarks FROM attendance a JOIN employees e ON e.id=a.employee_id ORDER BY a.attendance_date DESC,e.name');return res.json(rows)}const cfg=resources[req.params.resource];if(!cfg)throw new HttpError(404,'Unknown report resource.');const [rows]=await pool.query('SELECT * FROM '+cfg.table+' ORDER BY id DESC');res.json(rows)}));
+
+app.use('/css', express.static(path.join(__dirname, '..', 'css')));
+app.use('/js', express.static(path.join(__dirname, '..', 'js')));
+app.get(['/', '/index.html'], (req, res) => res.sendFile(path.join(__dirname, '..', 'index.html')));
 
 app.use((req,res)=>res.status(404).json({message:'Route not found.'}));
 app.use((err,req,res,next)=>{if(err&&err.code==='ER_DUP_ENTRY')return res.status(409).json({message:'A record with this unique code/email already exists.'});if(err&&err.code==='ER_NO_REFERENCED_ROW_2')return res.status(400).json({message:'Employee reference does not exist.'});const status=err.status||500;if(status===500)console.error(err);res.status(status).json({message:status===500?'Internal server error. Check backend logs and MySQL connection.':err.message})});
