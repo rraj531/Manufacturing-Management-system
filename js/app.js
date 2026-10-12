@@ -1,6 +1,6 @@
 /* ForgeFlow frontend: API-driven UI. Set API_BASE to your deployed backend URL when hosting separately. */
 (()=>{'use strict';
-const API_BASE=(window.FORGEFLOW_API_BASE||'').replace(/\/$/,'')+'/api';
+const API_BASE=(window.FORGEFLOW_API_BASE||'http://localhost:5000').replace(/\/$/,'')+'/api';
 const $=s=>document.querySelector(s),root=$('#pageRoot'),notice=$('#notice'),dialog=$('#recordDialog');
 const state={page:'dashboard',rows:[],editing:null,search:'',filters:{}};
 const meta={
